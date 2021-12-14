@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>d2b8b9f2-7d8d-419f-9f0c-9135b6845a45</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL.MicrosoftDI" Version="4.6.1" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj" />
+    <ProjectReference Include="..\ResortForecaster.Models\ResortForecaster.Models.csproj" />
+    <ProjectReference Include="..\ResortForecaster.Services\ResortForecaster.Services.csproj" />
+  </ItemGroup>
+
+</Project>
