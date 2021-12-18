@@ -2,6 +2,6 @@
 {
     public interface IFavoriteSkiResortService
     {
-        void FavoriteSkiResort(string skiResortId);
+        Task FavoriteSkiResort(string skiResortId);
     }
 }

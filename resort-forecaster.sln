@@ -5,19 +5,19 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F02E8C6F-374E-4E68-9C1F-50792D922189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Api", "ResortForecaster.Api\ResortForecaster.Api.csproj", "{1E859307-ED9D-486F-A99D-2A3E4D6B504E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Api", "ResortForecaster.Api\ResortForecaster.Api.csproj", "{1E859307-ED9D-486F-A99D-2A3E4D6B504E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Services", "ResortForecaster.Services\ResortForecaster.Services.csproj", "{F6F45F7C-579F-419D-BCFE-945ACF602C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Services", "ResortForecaster.Services\ResortForecaster.Services.csproj", "{F6F45F7C-579F-419D-BCFE-945ACF602C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.ApiClients", "ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj", "{BB72DE1A-8B82-42A7-8BB0-4A9C64E82ED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.ApiClients", "ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj", "{BB72DE1A-8B82-42A7-8BB0-4A9C64E82ED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Models", "ResortForecaster.Models\ResortForecaster.Models.csproj", "{32C54D7C-98E3-4369-A064-D11E7A371314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Models", "ResortForecaster.Models\ResortForecaster.Models.csproj", "{32C54D7C-98E3-4369-A064-D11E7A371314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Migrations", "ResortForecaster.Migrations\ResortForecaster.Migrations.csproj", "{EE791A42-5751-41D1-B2FD-B08EC19B0B76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Migrations", "ResortForecaster.Migrations\ResortForecaster.Migrations.csproj", "{EE791A42-5751-41D1-B2FD-B08EC19B0B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Repos", "ResortForecaster.Repos\ResortForecaster.Repos.csproj", "{8664694A-44B8-4A0F-958F-DEF28BE3551D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Repos", "ResortForecaster.Repos\ResortForecaster.Repos.csproj", "{8664694A-44B8-4A0F-958F-DEF28BE3551D}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{93AB2856-DE40-4F80-A550-7F0F0F9FC2BB}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{570AEE65-1A7D-4018-919C-34CF37C9046C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{8664694A-44B8-4A0F-958F-DEF28BE3551D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8664694A-44B8-4A0F-958F-DEF28BE3551D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8664694A-44B8-4A0F-958F-DEF28BE3551D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93AB2856-DE40-4F80-A550-7F0F0F9FC2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93AB2856-DE40-4F80-A550-7F0F0F9FC2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93AB2856-DE40-4F80-A550-7F0F0F9FC2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93AB2856-DE40-4F80-A550-7F0F0F9FC2BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

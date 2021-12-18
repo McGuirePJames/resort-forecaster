@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>93ab2856-de40-4f80-a550-7f0f0f9fc2bb</ProjectGuid>
+    <ProjectGuid>570aee65-1a7d-4018-919c-34cf37c9046c</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>resortforecaster.api</DockerServiceName>
