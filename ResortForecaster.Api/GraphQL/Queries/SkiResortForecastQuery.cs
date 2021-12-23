@@ -13,9 +13,9 @@ namespace ResortForecaster.Api.GraphQL.Queries
             this._skiResortForecastService = skiResortForecastService;
         }
 
-        public async Task<WeatherForecast> GetForecast()
+        public async Task<WeatherForecast> GetForecast(string skiResortId)
         {
-            var result = await this._skiResortForecastService.GetSkiResortForecast();
+            var result = await this._skiResortForecastService.GetSkiResortForecastAsync(Guid.Parse(skiResortId));
 
             return result;
         }

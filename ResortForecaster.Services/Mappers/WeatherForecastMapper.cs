@@ -12,19 +12,18 @@ namespace ResortForecaster.Services.Mappers
 
             var currentForecastJson = json.GetProperty("current");
             weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("clouds").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("sunrise").GetInt64();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("sunset").GetInt64();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("temp").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("feels_like").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("pressure").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("humidity").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("dew_point").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("uvi").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("visibility").GetInt64();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("wind_speed").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("wind_deg").GetInt64();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("wind_gust").GetDecimal();
-            weatherForecast.CurrentForecast.Clouds = currentForecastJson.GetProperty("dew_point").GetDecimal();
+            weatherForecast.CurrentForecast.Sunrise = currentForecastJson.GetProperty("sunrise").GetInt64();
+            weatherForecast.CurrentForecast.Sunset = currentForecastJson.GetProperty("sunset").GetInt64();
+            weatherForecast.CurrentForecast.Temp = currentForecastJson.GetProperty("temp").GetDecimal();
+            weatherForecast.CurrentForecast.FeelsLIke = currentForecastJson.GetProperty("feels_like").GetDecimal();
+            weatherForecast.CurrentForecast.Pressure = currentForecastJson.GetProperty("pressure").GetDecimal();
+            weatherForecast.CurrentForecast.Humidity = currentForecastJson.GetProperty("humidity").GetDecimal();
+            weatherForecast.CurrentForecast.DewPoint = currentForecastJson.GetProperty("dew_point").GetDecimal();
+            weatherForecast.CurrentForecast.UVI = currentForecastJson.GetProperty("uvi").GetDecimal();
+            weatherForecast.CurrentForecast.Visibility = currentForecastJson.GetProperty("visibility").GetInt64();
+            weatherForecast.CurrentForecast.WindSpeed = currentForecastJson.GetProperty("wind_speed").GetDecimal();
+            weatherForecast.CurrentForecast.WindDeg = currentForecastJson.GetProperty("wind_deg").GetInt64();
+            weatherForecast.CurrentForecast.WindGust = currentForecastJson.GetProperty("wind_gust").GetDecimal();
 
             return weatherForecast;
         }

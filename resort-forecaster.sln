@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Repos", "R
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{570AEE65-1A7D-4018-919C-34CF37C9046C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.GraphQL", "..\ResortForecaster.GraphQL\ResortForecaster.GraphQL.csproj", "{9459D8FF-D825-4270-B719-C6485D5643F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{570AEE65-1A7D-4018-919C-34CF37C9046C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9459D8FF-D825-4270-B719-C6485D5643F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9459D8FF-D825-4270-B719-C6485D5643F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9459D8FF-D825-4270-B719-C6485D5643F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9459D8FF-D825-4270-B719-C6485D5643F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{32C54D7C-98E3-4369-A064-D11E7A371314} = {F02E8C6F-374E-4E68-9C1F-50792D922189}
 		{EE791A42-5751-41D1-B2FD-B08EC19B0B76} = {F02E8C6F-374E-4E68-9C1F-50792D922189}
 		{8664694A-44B8-4A0F-958F-DEF28BE3551D} = {F02E8C6F-374E-4E68-9C1F-50792D922189}
+		{9459D8FF-D825-4270-B719-C6485D5643F1} = {F02E8C6F-374E-4E68-9C1F-50792D922189}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41AB5197-ABD2-4294-8C31-2D1B982D9D02}

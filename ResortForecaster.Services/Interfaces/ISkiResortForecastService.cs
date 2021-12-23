@@ -4,6 +4,6 @@ namespace ResortForecaster.Services.Interfaces
 {
     public interface ISkiResortForecastService
     {
-        public Task<WeatherForecast> GetSkiResortForecast();
+        public Task<WeatherForecast> GetSkiResortForecastAsync(Guid skiResortId);
     }
 }

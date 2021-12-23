@@ -7,6 +7,6 @@ namespace ResortForecaster.Models
         [Key]
         public Guid FavoriteSkiResortId { get; set; }
         public Guid SkiResortId { get; set; }
-        public string UserId { get; set; }
+        public string UserId { get; set; } = "";
     }
 }

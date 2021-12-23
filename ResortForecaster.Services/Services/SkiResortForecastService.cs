@@ -1,5 +1,6 @@
 ﻿using ResortForecaster.ApiClients.Interfaces;
 using ResortForecaster.Models;
+using ResortForecaster.Repos.Interfaces;
 using ResortForecaster.Services.Interfaces;
 
 namespace ResortForecaster.Services.Services
@@ -8,19 +9,35 @@ namespace ResortForecaster.Services.Services
     {
         private readonly IOpenWeatherClient _openWeatherClient;
         private readonly IWeatherForecastMapper _weatherForecastMapper;
+        private readonly ISkiResortRepo _skiResortRepo;
 
-        public SkiResortForecastService(IOpenWeatherClient openWeatherClient, IWeatherForecastMapper weatherForecastMapper)
+        public SkiResortForecastService(IOpenWeatherClient openWeatherClient, IWeatherForecastMapper weatherForecastMapper, ISkiResortRepo skiResortRepo)
         {
             this._openWeatherClient = openWeatherClient;
             this._weatherForecastMapper = weatherForecastMapper;
+            this._skiResortRepo = skiResortRepo;
         }
 
-        public async Task<WeatherForecast> GetSkiResortForecast()
+        public async Task<WeatherForecast> GetSkiResortForecastAsync(Guid skiResortId)
         {
-            var result = await this._openWeatherClient.GetWeatherForecastAsync();
-            var mapResult = _weatherForecastMapper.FromString(result);
+            try
+            {
+                var skiResort = await this._skiResortRepo.GetSkiResortAsync(skiResortId);
 
-            return mapResult;
+                if (skiResort != null)
+                {
+                    var result = await this._openWeatherClient.GetWeatherForecastAsync(skiResort.Latitude, skiResort.Longitude);
+                    var mapResult = _weatherForecastMapper.FromString(result);
+
+                    return mapResult;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return new WeatherForecast();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ResortForecaster.Repos
         {
         }
 
-        public DbSet<SkiResort>? SkiResorts { get; set; }
+        public DbSet<SkiResort> SkiResorts { get; set; }
         public DbSet<FavoriteSkiResort> FavoriteSkiResorts { get; set; }
     }
 }

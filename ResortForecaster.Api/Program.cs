@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using ResortForecaster.Api.Controllers;
 using ResortForecaster.Api.GraphQL.Queries;
 using ResortForecaster.ApiClients.ApiClients;
@@ -22,26 +23,41 @@ builder.Services.AddTransient<FavoriteSkiResortController>();
 builder.Services.AddTransient<IOpenWeatherClient, OpenWeatherClient>();
 builder.Services.AddTransient<ISkiResortForecastService, SkiResortForecastService>();
 builder.Services.AddTransient<IFavoriteSkiResortService, FavoriteSkiResortService>();
+builder.Services.AddTransient<ISkiResortService, SkiResortService>();
 builder.Services.AddTransient<IFavoriteSkiResortRepo, FavoriteSkiResortRepo>();
+builder.Services.AddTransient<ISkiResortRepo, SkiResortRepo>();
 builder.Services.AddTransient<IWeatherForecastMapper, WeatherForecastMapper>();
+
 var connectionString = builder.Configuration.GetConnectionString("ResortForecasterDB");
 builder.Services.AddDbContext<ResortForecasterContext>(
-    options => options.UseSqlServer(connectionString, 
+    options => options.UseSqlServer((connectionString),
         (sqlOptions) =>
         {
             sqlOptions.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromTicks(30), errorNumbersToAdd: null);
         }
-    ));
+    ), ServiceLifetime.Singleton);
+
+
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+});
+
 
 builder
-    .Services.AddGraphQLServer()
-    .AddQueryType<Query>()
-    .AddType<SkiResotQuery>()
-    .AddType<SkiResortForecastQuery>();
+    .Services
+        .AddGraphQLServer()
+            .AddQueryType<Query>()
+            .AddType<SkiResotQuery>()
+            .AddType<SkiResortForecastQuery>();
+
+
+builder.Services.AddGraphQLServer();
 
 var app = builder.Build();
 app.UseRouting();
 app.UseAuthorization();
+app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -54,12 +70,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.MapGet("/SkiResortForecast", async ([FromServices] SkiResortForecastController skiResortForecastController) =>
     {
-        await skiResortForecastController.GetSkiResortForecasts();
+        await skiResortForecastController.GetSkiResortForecasts(Guid.NewGuid());
     });
 
     app.MapPost("/FavoriteSkiResort", async ([FromServices] FavoriteSkiResortController favoriteSkiResortController) =>
     {
-        await favoriteSkiResortController.FavoriteSkiResort();
+        await favoriteSkiResortController.FavoriteSkiResort(Guid.Parse("B1B58459-1139-47EA-9BD3-3BF2A758908F"));
     });
 
     app.UseSwaggerUI();

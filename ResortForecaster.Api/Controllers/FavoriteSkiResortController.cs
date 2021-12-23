@@ -14,9 +14,9 @@ namespace ResortForecaster.Api.Controllers
         }
 
         [HttpPost]
-        public async Task FavoriteSkiResort()
+        public async Task FavoriteSkiResort(Guid skiResortId)
         {
-            await this._favoriteSkiResortService.FavoriteSkiResort("A");
+            await this._favoriteSkiResortService.FavoriteSkiResortAsync(Guid.Parse("B1B58459-1139-47EA-9BD3-3BF2A758908F"));
         }
     }
 }

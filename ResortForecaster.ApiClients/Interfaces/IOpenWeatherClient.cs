@@ -2,6 +2,6 @@
 {
     public interface IOpenWeatherClient
     {
-        Task<string> GetWeatherForecastAsync();
+        Task<string> GetWeatherForecastAsync(decimal latitude, decimal longitude);
     }
 }

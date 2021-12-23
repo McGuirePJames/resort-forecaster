@@ -15,9 +15,9 @@ namespace ResortForecaster.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<WeatherForecast> GetSkiResortForecasts()
+        public async Task<WeatherForecast> GetSkiResortForecasts(Guid skiResortId)
         {
-            var result = await this._skiResortForecastService.GetSkiResortForecast();
+            var result = await this._skiResortForecastService.GetSkiResortForecastAsync(skiResortId);
 
             return result;
         }

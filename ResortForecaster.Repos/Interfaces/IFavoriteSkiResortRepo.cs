@@ -2,6 +2,6 @@
 {
     public interface IFavoriteSkiResortRepo
     {
-        void Favorite(string Id);
+        Task FavoriteAsync(Guid skiResortId);
     }
 }

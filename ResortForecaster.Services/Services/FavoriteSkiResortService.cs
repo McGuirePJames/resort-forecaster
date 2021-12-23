@@ -12,9 +12,9 @@ namespace ResortForecaster.Services.Services
             this._favoriteSkiResortRepo = favoriteSkiResortRepo;
         }
 
-        public async Task FavoriteSkiResort(string skiResortId)
+        public async Task FavoriteSkiResortAsync(Guid skiResortId)
         {
-            this._favoriteSkiResortRepo.Favorite(skiResortId);
+            await this._favoriteSkiResortRepo.FavoriteAsync(skiResortId);
         }
     }
 }

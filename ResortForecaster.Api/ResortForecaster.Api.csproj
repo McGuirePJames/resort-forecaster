@@ -12,6 +12,8 @@
   <ItemGroup>
     <PackageReference Include="GraphQL.MicrosoftDI" Version="4.6.1" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.0" />
+    <PackageReference Include="HotChocolate.AspNetCore.Subscriptions" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Stitching" Version="12.4.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

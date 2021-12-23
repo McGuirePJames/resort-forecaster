@@ -10,4 +10,9 @@
     <Folder Include="GraphQL\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore.Subscriptions" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Stitching" Version="12.4.1" />
+  </ItemGroup>
+
 </Project>
