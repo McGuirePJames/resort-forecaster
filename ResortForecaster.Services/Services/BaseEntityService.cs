@@ -51,8 +51,6 @@ namespace ResortForecaster.Services.Services
         {
             try
             {
-                throw new Exception("Fuck");
-
                 return await this._baseRepo.GetAllAsync();
             }
             catch (Exception ex)
