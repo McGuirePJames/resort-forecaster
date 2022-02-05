@@ -7,13 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HotChocolate.AspNetCore.Subscriptions" Version="10.5.5" />
-    <PackageReference Include="HotChocolate.Stitching" Version="12.4.1" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.10.0" />
+    <PackageReference Include="GraphQL" Version="4.7.1" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="5.2.0" />
+    <PackageReference Include="GraphQL.Server.Ui.Playground" Version="5.2.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.1" />
+    <PackageReference Include="HotChocolate.Data" Version="12.4.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
+    <PackageReference Include="NLog" Version="4.7.13" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ResortForecaster.Utilities\ResortForecaster.Utilities.csproj" />
     <ProjectReference Include="..\ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj" />
     <ProjectReference Include="..\ResortForecaster.Models\ResortForecaster.Models.csproj" />
     <ProjectReference Include="..\ResortForecaster.Repos\ResortForecaster.Repos.csproj" />

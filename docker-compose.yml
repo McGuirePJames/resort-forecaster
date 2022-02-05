@@ -1,15 +1,68 @@
 version: '3.4'
 
 services:
+  resort-forecaster-db:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    user: root
+    volumes:
+      - resort-forecaster-db-volume:/var/opt/mssql/data
+    environment:
+      - MSSQL_SA_PASSWORD=Abcd1234!
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - elastic
+
   resortforecaster.api:
     image: ${DOCKER_REGISTRY-}resortforecasterapi
     build:
       context: .
       dockerfile: ResortForecaster.Api/Dockerfile
-  resort-forecaster-db:
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
-    environment:
-      - SA_PASSWORD=Abcd1234!
-      - ACCEPT_EULA=Y
     ports:
-      - "1433:1433"
+      - "8080:443"
+    environment:
+      - "ElasticConfiguration__Uri=http://es01:9200"
+    networks:
+      - elastic
+    depends_on:
+      - resort-forecaster-db
+      - es01
+
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    container_name: es01
+    environment:
+      - node.name=es01
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - elastic
+
+  kib01:
+   image: docker.elastic.co/kibana/kibana:7.9.2
+   container_name: kib01
+   ports:
+     - 5601:5601
+   environment:
+     ELASTICSEARCH_URL: http://es01:9200
+     ELASTICSEARCH_HOSTS: http://es01:9200
+   networks:
+     - elastic
+
+volumes:
+  resort-forecaster-db-volume:
+  elasticsearch-data:
+ 
+networks:
+  elastic:
+    driver: bridge

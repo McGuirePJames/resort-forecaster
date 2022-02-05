@@ -4,16 +4,19 @@ using ResortForecaster.Services.Interfaces;
 namespace ResortForecaster.Api.GraphQL.Queries
 {
     [ExtendObjectType(name: "Query")]
-    public class SkiResotQuery
+    public class SkiResortQuery
     {
 
         private readonly ISkiResortService _skiResortService;
 
-        public SkiResotQuery(ISkiResortService skiResortService)
+        public SkiResortQuery(ISkiResortService skiResortService)
         {
             this._skiResortService = skiResortService;
         }
 
+        [UseProjection]
+        [UseFiltering]
+        [UseSorting]
         public async Task<List<SkiResort>> GetSkiResorts()
         {
             return await this._skiResortService.GetSkiResortsAsync();

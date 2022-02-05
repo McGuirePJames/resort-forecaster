@@ -1,5 +1,10 @@
-﻿namespace ResortForecaster.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ResortForecaster.Models
 {
+    [Keyless]
+    [NotMapped]
     public class WeatherForecast
     {
         public WeatherForecast()

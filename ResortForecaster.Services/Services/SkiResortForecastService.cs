@@ -20,21 +20,14 @@ namespace ResortForecaster.Services.Services
 
         public async Task<WeatherForecast> GetSkiResortForecastAsync(Guid skiResortId)
         {
-            try
+            var skiResort = await this._skiResortRepo.GetSkiResortAsync(skiResortId);
+
+            if (skiResort != null)
             {
-                var skiResort = await this._skiResortRepo.GetSkiResortAsync(skiResortId);
+                var result = await this._openWeatherClient.GetWeatherForecastAsync(skiResort.Latitude, skiResort.Longitude);
+                var mapResult = _weatherForecastMapper.FromString(result);
 
-                if (skiResort != null)
-                {
-                    var result = await this._openWeatherClient.GetWeatherForecastAsync(skiResort.Latitude, skiResort.Longitude);
-                    var mapResult = _weatherForecastMapper.FromString(result);
-
-                    return mapResult;
-                }
-            }
-            catch (Exception ex)
-            {
-
+                return mapResult;
             }
 
             return new WeatherForecast();

@@ -1,86 +1,45 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using ResortForecaster.Api.Controllers;
-using ResortForecaster.Api.GraphQL.Queries;
-using ResortForecaster.ApiClients.ApiClients;
-using ResortForecaster.ApiClients.Interfaces;
-using ResortForecaster.Repos;
-using ResortForecaster.Repos.Interfaces;
-using ResortForecaster.Repos.Repos;
-using ResortForecaster.Services.Interfaces;
-using ResortForecaster.Services.Mappers;
-using ResortForecaster.Services.Services;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddRouting();
-builder.Services.AddTransient<SkiResortForecastController>();
-builder.Services.AddTransient<FavoriteSkiResortController>();
-builder.Services.AddTransient<IOpenWeatherClient, OpenWeatherClient>();
-builder.Services.AddTransient<ISkiResortForecastService, SkiResortForecastService>();
-builder.Services.AddTransient<IFavoriteSkiResortService, FavoriteSkiResortService>();
-builder.Services.AddTransient<ISkiResortService, SkiResortService>();
-builder.Services.AddTransient<IFavoriteSkiResortRepo, FavoriteSkiResortRepo>();
-builder.Services.AddTransient<ISkiResortRepo, SkiResortRepo>();
-builder.Services.AddTransient<IWeatherForecastMapper, WeatherForecastMapper>();
-
-var connectionString = builder.Configuration.GetConnectionString("ResortForecasterDB");
-builder.Services.AddDbContext<ResortForecasterContext>(
-    options => options.UseSqlServer((connectionString),
-        (sqlOptions) =>
+namespace ResortForecaster.Api
+{
+    public class Program
+    {
+        public static async Task Main(string[] args)
         {
-            sqlOptions.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromTicks(30), errorNumbersToAdd: null);
+            var host = CreateHostBuilder(args).Build();
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+            }
+
+            await host.RunAsync();
         }
-    ), ServiceLifetime.Singleton);
 
-
-builder.Services.AddCors(c =>
-{
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-});
-
-
-builder
-    .Services
-        .AddGraphQLServer()
-            .AddQueryType<Query>()
-            .AddType<SkiResotQuery>()
-            .AddType<SkiResortForecastQuery>();
-
-
-builder.Services.AddGraphQLServer();
-
-var app = builder.Build();
-app.UseRouting();
-app.UseAuthorization();
-app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapGraphQL();
-    });
-
-    app.UseSwagger();
-    app.MapGet("/SkiResortForecast", async ([FromServices] SkiResortForecastController skiResortForecastController) =>
-    {
-        await skiResortForecastController.GetSkiResortForecasts(Guid.NewGuid());
-    });
-
-    app.MapPost("/FavoriteSkiResort", async ([FromServices] FavoriteSkiResortController favoriteSkiResortController) =>
-    {
-        await favoriteSkiResortController.FavoriteSkiResort(Guid.Parse("B1B58459-1139-47EA-9BD3-3BF2A758908F"));
-    });
-
-    app.UseSwaggerUI();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseSerilog(((context, configuration) =>
+                {
+                    configuration
+                        .Enrich.FromLogContext()
+                        .Enrich.WithMachineName()
+                        .WriteTo.Console()
+                        .WriteTo.Elasticsearch(
+                            new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
+                            {
+                                IndexFormat =
+                                    $"{context.Configuration["ApplicationName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}",
+                                AutoRegisterTemplate = true,
+                                NumberOfShards = 2,
+                                NumberOfReplicas = 1
+                            })
+                        .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
+                        .ReadFrom.Configuration(context.Configuration);
+                }))
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-
-app.UseHttpsRedirection();
-app.MapControllers();
-app.Run();

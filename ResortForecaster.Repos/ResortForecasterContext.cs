@@ -3,6 +3,7 @@ using ResortForecaster.Models;
 
 namespace ResortForecaster.Repos
 {
+
     public class ResortForecasterContext : DbContext
     {
 
@@ -10,7 +11,9 @@ namespace ResortForecaster.Repos
         {
         }
 
+        public DbSet<Feedback> Feedback { get; set; }
         public DbSet<SkiResort> SkiResorts { get; set; }
         public DbSet<FavoriteSkiResort> FavoriteSkiResorts { get; set; }
+        public DbSet<Avalanche> Avalanches { get; set; }
     }
 }

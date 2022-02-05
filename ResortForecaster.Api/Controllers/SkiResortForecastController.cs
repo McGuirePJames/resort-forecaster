@@ -8,17 +8,30 @@ namespace ResortForecaster.Api.Controllers
     public class SkiResortForecastController : Controller
     {
         private readonly ISkiResortForecastService _skiResortForecastService;
+        private readonly IBlobStorageService _blobStorageService;
+        private readonly IAvalancheMapper _avalancheMapper;
+        private readonly IAvalancheService _avalancheService;
 
-        public SkiResortForecastController(ISkiResortForecastService skiResortForecastService)
+        public SkiResortForecastController(ISkiResortForecastService skiResortForecastService, IBlobStorageService blobStorageService, IAvalancheMapper avalancheMapper, IAvalancheService avalancheService)
         {
             this._skiResortForecastService = skiResortForecastService;
+            this._blobStorageService = blobStorageService;
+            this._avalancheMapper = avalancheMapper;
+            this._avalancheService = avalancheService;
         }
 
         [HttpGet]
         public async Task<WeatherForecast> GetSkiResortForecasts(Guid skiResortId)
         {
-            var result = await this._skiResortForecastService.GetSkiResortForecastAsync(skiResortId);
+            //var deserializedResult = await this._blobStorageService.DeserializeFile<List<AvalanceRaw>>("avalanches3rd.txt");
+            //var avalanches = this._avalancheMapper.FromRaw(deserializedResult);
 
+            //foreach (Avalanche avalanche in avalanches)
+            //{
+            //    await this._avalancheService.CreateAsync(avalanche);
+            //}
+
+            var result = await this._skiResortForecastService.GetSkiResortForecastAsync(skiResortId);
             return result;
         }
     }

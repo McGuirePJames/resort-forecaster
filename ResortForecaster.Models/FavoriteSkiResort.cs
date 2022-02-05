@@ -2,10 +2,8 @@
 
 namespace ResortForecaster.Models
 {
-    public class FavoriteSkiResort
+    public class FavoriteSkiResort : Base
     {
-        [Key]
-        public Guid FavoriteSkiResortId { get; set; }
         public Guid SkiResortId { get; set; }
         public string UserId { get; set; } = "";
     }

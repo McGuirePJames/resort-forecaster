@@ -14,22 +14,15 @@ namespace ResortForecaster.Repos.Repos
 
         public async Task FavoriteAsync(Guid skiResortId)
         {
-            try
+            var favoriteSkiResort = new FavoriteSkiResort()
             {
-                var favoriteSkiResort = new FavoriteSkiResort()
-                {
-                    FavoriteSkiResortId = Guid.NewGuid(),
-                    SkiResortId = skiResortId,
-                    UserId = Guid.NewGuid().ToString(),
-                };
+                Id = Guid.NewGuid(),
+                SkiResortId = skiResortId,
+                UserId = Guid.NewGuid().ToString(),
+            };
 
-                await this._dbContext.AddAsync<FavoriteSkiResort>(favoriteSkiResort);
-                await this._dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await this._dbContext.AddAsync<FavoriteSkiResort>(favoriteSkiResort);
+            await this._dbContext.SaveChangesAsync();
         }
     }
 }

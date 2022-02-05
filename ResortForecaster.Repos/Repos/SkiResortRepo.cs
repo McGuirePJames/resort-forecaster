@@ -20,7 +20,7 @@ namespace ResortForecaster.Repos.Repos
 
         public async Task<List<SkiResort>> GetSkiResortsByIdAsync(List<Guid> skiResortIds)
         {
-            return await this._dbContext.SkiResorts.Where((x) => skiResortIds.Contains(x.SkiResortId)).ToListAsync();
+            return await this._dbContext.SkiResorts.Where((x) => skiResortIds.Contains(x.Id)).ToListAsync();
         }
 
         public async Task<SkiResort> GetSkiResortAsync(Guid skiResortId)

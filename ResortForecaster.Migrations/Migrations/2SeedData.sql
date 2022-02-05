@@ -1,6 +1,6 @@
 ﻿INSERT INTO SkiResorts
 VALUES(NEWID(), 'Park City', 'Park City', 'http://mediad.publicbroadcasting.net/p/kuer/files/201211/RESORT_AERIAL.jpg.jpeg', '40.67423102317609', '-111.59259925527557')
-
+/*
 INSERT INTO SkiResorts
 VALUES (NEWID(), 'Steamboat Springs', 'Steamboat Springs', 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/3087/Steamboat-Ski-Resort-134843.jpg', '40.45406697450581', '-106.7439845693788')
 
@@ -15,3 +15,13 @@ VALUES (NEWID(), 'Alta', 'Alta', 'https://media.gettyimages.com/photos/skiers-in
 
 INSERT INTO SkiResorts
 VALUES (NEWID(), 'Sierra At Tahoe', 'Sierra At Tahoe', 'https://www.skilaketahoe.com/wp-content/uploads/SierraSkierPow1.jpg', '38.800164123420686', '-120.06654896904556')
+*/
+
+INSERT INTO Lookup.FeedbackType
+VALUES (1, 'Bug')
+
+INSERT INTO Lookup.FeedbackType
+VALUES (2, 'Suggestion')
+
+INSERT INTO Lookup.FeedbackType
+VALUES (3, 'Inquiry')
