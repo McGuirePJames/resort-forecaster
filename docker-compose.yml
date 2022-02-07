@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: ResortForecaster.Api/Dockerfile
     ports:
-      - "8080:443"
+      - "8080:80"
     environment:
       - "ElasticConfiguration__Uri=http://es01:9200"
     networks:
