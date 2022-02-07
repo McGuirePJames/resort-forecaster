@@ -3,6 +3,7 @@ version: '3.4'
 services:
   resort-forecaster-db:
     image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: resort-forecaster-db
     user: root
     volumes:
       - resort-forecaster-db-volume:/var/opt/mssql/data
@@ -26,7 +27,6 @@ services:
     networks:
       - elastic
     depends_on:
-      - resort-forecaster-db
       - es01
 
   es01:

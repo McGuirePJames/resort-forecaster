@@ -29,4 +29,3 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 VOLUME /var/opt/mssql/data/resort-forecaster-db-volume
 ENTRYPOINT ["dotnet", "ResortForecaster.Api.dll"]
-CMD echo "Hello World"
