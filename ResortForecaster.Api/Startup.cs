@@ -92,7 +92,6 @@ namespace ResortForecaster.Api
             });
 
             var connectionString = Configuration.GetConnectionString("ResortForecasterDB");
-
             services.AddDbContext<ResortForecasterContext>(
                 options => options.UseSqlServer((connectionString),
                 (sqlOptions) =>
