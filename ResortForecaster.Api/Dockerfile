@@ -10,7 +10,12 @@ WORKDIR /src
 COPY ["ResortForecaster.Api/ResortForecaster.Api.csproj", "ResortForecaster.Api/"]
 COPY ["ResortForecaster.ApiClients/ResortForecaster.ApiClients.csproj", "ResortForecaster.ApiClients/"]
 COPY ["ResortForecaster.Models/ResortForecaster.Models.csproj", "ResortForecaster.Models/"]
+COPY ["ResortForecaster.Enums/ResortForecaster.Enums.csproj", "ResortForecaster.Enums/"]
+COPY ["ResortForecaster.GraphQL/ResortForecaster.GraphQL.csproj", "ResortForecaster.GraphQL/"]
+COPY ["ResortForecaster.Repos/ResortForecaster.Repos.csproj", "ResortForecaster.Repos/"]
 COPY ["ResortForecaster.Services/ResortForecaster.Services.csproj", "ResortForecaster.Services/"]
+COPY ["ResortForecaster.Utilities/ResortForecaster.Utilities.csproj", "ResortForecaster.Utilities/"]
+COPY ["ResortForecaster.Migrations/ResortForecaster.Migrations.csproj", "ResortForecaster.Migrations/"]
 RUN dotnet restore "ResortForecaster.Api/ResortForecaster.Api.csproj"
 COPY . .
 WORKDIR "/src/ResortForecaster.Api"

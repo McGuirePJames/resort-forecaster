@@ -35,6 +35,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj" />
+		<ProjectReference Include="..\ResortForecaster.Enums\ResortForecaster.Enums.csproj" />
 		<ProjectReference Include="..\ResortForecaster.Models\ResortForecaster.Models.csproj" />
 		<ProjectReference Include="..\ResortForecaster.Repos\ResortForecaster.Repos.csproj" />
 		<ProjectReference Include="..\ResortForecaster.Services\ResortForecaster.Services.csproj" />

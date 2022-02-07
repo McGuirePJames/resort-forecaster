@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ResortForecaster.Utilities\ResortForecaster.Utilities.csproj" />
     <ProjectReference Include="..\ResortForecaster.ApiClients\ResortForecaster.ApiClients.csproj" />
     <ProjectReference Include="..\ResortForecaster.Models\ResortForecaster.Models.csproj" />
     <ProjectReference Include="..\ResortForecaster.Repos\ResortForecaster.Repos.csproj" />
+    <ProjectReference Include="..\ResortForecaster.Utilities\ResortForecaster.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

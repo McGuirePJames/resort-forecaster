@@ -7,20 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GraphQL\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="GraphQL" Version="4.7.1" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="5.2.0" />
     <PackageReference Include="GraphQL.Server.Ui.Playground" Version="5.2.0" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.4.1" />
     <PackageReference Include="HotChocolate.Data" Version="12.4.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ResortForecaster.Enums\ResortForecaster.Enums.csproj" />
   </ItemGroup>
 
 </Project>
