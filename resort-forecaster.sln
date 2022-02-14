@@ -19,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Repos", "R
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{570AEE65-1A7D-4018-919C-34CF37C9046C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Utilities", "ResortForecaster.Utilities\ResortForecaster.Utilities.csproj", "{1480CF44-F5D2-412B-BFE8-B569896DB7FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Utilities", "ResortForecaster.Utilities\ResortForecaster.Utilities.csproj", "{1480CF44-F5D2-412B-BFE8-B569896DB7FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResortForecaster.Enums", "ResortForecaster.Enums\ResortForecaster.Enums.csproj", "{E747374E-B998-4A2C-BDB3-663D6FFF5E87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResortForecaster.Enums", "ResortForecaster.Enums\ResortForecaster.Enums.csproj", "{E747374E-B998-4A2C-BDB3-663D6FFF5E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

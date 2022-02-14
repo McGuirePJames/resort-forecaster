@@ -28,5 +28,5 @@ RUN dotnet publish "ResortForecaster.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-VOLUME /var/opt/mssql/data/resort-forecaster-db-volume
+VOLUME /var/opt/mssql/data/resort-forecaster-database-volume
 ENTRYPOINT ["dotnet", "ResortForecaster.Api.dll"]

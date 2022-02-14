@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using ResortForecaster.Api.Controllers;
 using ResortForecaster.Api.GraphQL.Mutations;
 using ResortForecaster.Api.GraphQL.Queries;
@@ -45,6 +47,68 @@ namespace ResortForecaster.Api
                 accountStorageOptions.ConnectionString = Configuration.GetSection("AzureAccountStorageOptions:ConnectionString").Value;
                 accountStorageOptions.ContainerName = Configuration.GetSection("AzureAccountStorageOptions:ContainerName").Value;
             });
+
+            this.ConfigureDependencyInjections(services);
+
+            services
+            .AddGraphQLServer()
+            .AddFiltering()
+            .AddSorting()
+            .AddProjections()
+            .AddQueryType(d => d.Name("Query"))
+                .AddTypeExtension<SkiResortQuery>()
+                .AddTypeExtension<SkiResortForecastQuery>()
+                .AddTypeExtension<AvalancheQuery>()
+            .AddMutationType(d => d.Name("Mutation"))
+                .AddTypeExtension<AvalancheMutation>()
+                .AddTypeExtension<FeedbackMutation>()
+            .AddType<SkiResortResolver>();
+
+            services.AddGraphQLServer();
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
+            var connectionString = "Server=localhost, 1433;User ID=sa;Password=Abcd1234!;"; // Configuration.GetConnectionString("ResortForecasterDB");
+            services.AddDbContext<ResortForecasterContext>(
+                options => options.UseSqlServer((connectionString),
+                (sqlOptions) =>
+                {
+                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromTicks(30), errorNumbersToAdd: null);
+                }), ServiceLifetime.Singleton);
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseHttpsRedirection();
+            app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGraphQL();
+            });
+
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<ResortForecasterContext>();
+                context.Database.EnsureCreated();
+            }
+        }
+
+        private void ConfigureDependencyInjections(IServiceCollection services)
+        {
             services.AddSingleton<AzureAccountStorageOptions>();
 
             // Clients
@@ -69,69 +133,6 @@ namespace ResortForecaster.Api
             // Mappers
             services.AddTransient<IWeatherForecastMapper, WeatherForecastMapper>();
             services.AddTransient<IAvalancheMapper, AvalanceMapper>();
-
-            services
-            .AddGraphQLServer()
-            .AddFiltering()
-            .AddSorting()
-            .AddProjections()
-            .AddQueryType(d => d.Name("Query"))
-                .AddTypeExtension<SkiResortQuery>()
-                .AddTypeExtension<SkiResortForecastQuery>()
-                .AddTypeExtension<AvalancheQuery>()
-            .AddMutationType(d => d.Name("Mutation"))
-                .AddTypeExtension<AvalancheMutation>()
-                .AddTypeExtension<FeedbackMutation>()
-            .AddType<SkiResortResolver>();
-
-            services.AddGraphQLServer();
-
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-
-            var connectionString = Configuration.GetConnectionString("ResortForecasterDB");
-            services.AddDbContext<ResortForecasterContext>(
-                options => options.UseSqlServer((connectionString),
-                (sqlOptions) =>
-                {
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 3, maxRetryDelay: TimeSpan.FromTicks(30), errorNumbersToAdd: null);
-                }), ServiceLifetime.Singleton);
-        }
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            app.UseRouting();
-            app.UseAuthorization();
-            // TODO: Remove this
-            app.UseCors(options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGraphQL();
-            });
-
-            app.UseHttpsRedirection();
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ResortForecasterContext>();
-                context.Database.EnsureCreated();
-            }
-        }
-
-        private void ConfigureDependencyInjections(IServiceCollection services)
-        {
-
         }
     }
 }

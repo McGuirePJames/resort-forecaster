@@ -7,27 +7,13 @@ services:
       context: .
       dockerfile: ResortForecaster.Api/Dockerfile
     ports:
-      - "8080:80"
+      - "8080:443"
     environment:
       - "ElasticConfiguration__Uri=http://es01:9200"
-    networks:
-      - elastic
     depends_on:
       - es01
-
-  resort-forecaster-db:
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
-    container_name: resort-forecaster-db
-    user: root
-    volumes:
-      - resort-forecaster-db-volume:/var/opt/mssql/data
-    environment:
-      - MSSQL_SA_PASSWORD=Abcd1234!
-      - ACCEPT_EULA=Y
-    ports:
-      - "1433:1433"
     networks:
-      - elastic
+      - resort-forecaster-network
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
@@ -46,7 +32,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      - elastic
+      - resort-forecaster-network
 
   kib01:
    image: docker.elastic.co/kibana/kibana:7.9.2
@@ -57,12 +43,12 @@ services:
      ELASTICSEARCH_URL: http://es01:9200
      ELASTICSEARCH_HOSTS: http://es01:9200
    networks:
-     - elastic
+     - resort-forecaster-network
 
 volumes:
-  resort-forecaster-db-volume:
+  resort-forecaster-database-volume:
   elasticsearch-data:
  
 networks:
-  elastic:
+  resort-forecaster-network:
     driver: bridge
