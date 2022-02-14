@@ -111,7 +111,6 @@ namespace ResortForecaster.Api
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<ResortForecasterContext>();
-                var bla = context.Database.GetConnectionString();
                 context.Database.EnsureCreated();
             }
         }
