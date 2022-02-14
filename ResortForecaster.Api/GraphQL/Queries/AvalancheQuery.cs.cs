@@ -24,7 +24,6 @@ namespace ResortForecaster.Api.GraphQL.Queries
             var cacheKey = "cachedAvalanches";
             List<Avalanche> cachedAvalanches;
 
-
             if (_cache.TryGetValue(cacheKey, out cachedAvalanches))
             {
                 return cachedAvalanches;
@@ -32,7 +31,10 @@ namespace ResortForecaster.Api.GraphQL.Queries
             else
             {
                 cachedAvalanches = await this._avalancheService.GetAllAsync();
-                _cache.Set(cacheKey, cachedAvalanches);
+                _cache.Set(cacheKey, cachedAvalanches, new MemoryCacheEntryOptions()
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(60),
+                });
 
                 return cachedAvalanches;
             }
