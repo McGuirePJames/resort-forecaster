@@ -25,10 +25,17 @@ namespace ResortForecaster.Api
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) //load base settings
-            .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true) //load local settings
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true) //load environment settings
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
             .AddEnvironmentVariables();
+
+            if (env.EnvironmentName == "Production")
+            {
+                builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            }
+            else
+            {
+                builder.AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
+            }
 
             Configuration = builder.Build();
         }
@@ -71,7 +78,7 @@ namespace ResortForecaster.Api
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
 
-            var connectionString = "Server=localhost, 1433;User ID=sa;Password=Abcd1234!;"; // Configuration.GetConnectionString("ResortForecasterDB");
+            var connectionString = Configuration.GetConnectionString("ResortForecasterDB");
             services.AddDbContext<ResortForecasterContext>(
                 options => options.UseSqlServer((connectionString),
                 (sqlOptions) =>
