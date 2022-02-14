@@ -14,6 +14,8 @@ services:
       - es01
     networks:
       - resort-forecaster-network
+    volumes:
+      - resort-forecaster-database_resort-forecaster-database-volume:/var/opt/mssql/data
 
   es01:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
@@ -46,8 +48,9 @@ services:
      - resort-forecaster-network
 
 volumes:
-  resort-forecaster-database-volume:
   elasticsearch-data:
+  resort-forecaster-database_resort-forecaster-database-volume:
+    external: true
  
 networks:
   resort-forecaster-network:

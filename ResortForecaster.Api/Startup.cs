@@ -42,6 +42,7 @@ namespace ResortForecaster.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMemoryCache();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -110,6 +111,7 @@ namespace ResortForecaster.Api
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<ResortForecasterContext>();
+                var bla = context.Database.GetConnectionString();
                 context.Database.EnsureCreated();
             }
         }

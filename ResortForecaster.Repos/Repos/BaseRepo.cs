@@ -32,9 +32,12 @@ namespace ResortForecaster.Repos.Repos
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            return await _dbContext.Set<TEntity>().AsQueryable()
+            var connectionString = this._dbContext.Database;
+            var result = await _dbContext.Set<TEntity>().AsQueryable()
                 .AsNoTracking()
                 .ToListAsync();
+
+            return result;
         }
 
         public async Task<TEntity?> GetByIdAsync(Guid id)

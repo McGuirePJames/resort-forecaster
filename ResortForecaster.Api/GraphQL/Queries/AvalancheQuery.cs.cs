@@ -1,4 +1,5 @@
-﻿using ResortForecaster.Models;
+﻿using Microsoft.Extensions.Caching.Memory;
+using ResortForecaster.Models;
 using ResortForecaster.Services.Interfaces;
 
 namespace ResortForecaster.Api.GraphQL.Queries
@@ -7,10 +8,12 @@ namespace ResortForecaster.Api.GraphQL.Queries
     public class AvalancheQuery
     {
         private readonly IAvalancheService _avalancheService;
+        private readonly IMemoryCache _cache;
 
-        public AvalancheQuery(IAvalancheService avalancheService)
+        public AvalancheQuery(IAvalancheService avalancheService, IMemoryCache cache)
         {
             this._avalancheService = avalancheService;
+            this._cache = cache;
         }
 
         [UseProjection]
@@ -18,7 +21,21 @@ namespace ResortForecaster.Api.GraphQL.Queries
         [UseSorting]
         public async Task<List<Avalanche>> GetAvalanches()
         {
-            return await this._avalancheService.GetAllAsync();
+            var cacheKey = "cachedAvalanches";
+            List<Avalanche> cachedAvalanches;
+
+
+            if (_cache.TryGetValue(cacheKey, out cachedAvalanches))
+            {
+                return cachedAvalanches;
+            }
+            else
+            {
+                cachedAvalanches = await this._avalancheService.GetAllAsync();
+                _cache.Set(cacheKey, cachedAvalanches);
+
+                return cachedAvalanches;
+            }
         }
     }
 }
