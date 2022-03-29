@@ -9,50 +9,94 @@ services:
     ports:
       - 80
       - 443
+      - 8080
       - "8080:443"
-    environment:
-      - "ElasticConfiguration__Uri=http://es01:9200"
-    depends_on:
-      - es01
+      - "8080:80"
     networks:
       - resort-forecaster-network
     volumes:
       - resort-forecaster-database_resort-forecaster-database-volume:/var/opt/mssql/data
+    environment:
+      - "ElasticConfiguration__Uri=http://es01:9200"
+    depends_on:
+      - es01
 
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
     container_name: es01
     environment:
       - node.name=es01
-      - discovery.type=single-node
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - data01:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
       - resort-forecaster-network
-
-  kib01:
-   image: docker.elastic.co/kibana/kibana:7.9.2
-   container_name: kib01
-   ports:
-     - 5601:5601
-   environment:
-     ELASTICSEARCH_URL: http://es01:9200
-     ELASTICSEARCH_HOSTS: http://es01:9200
-   networks:
-     - resort-forecaster-network
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    container_name: es02
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    networks:
+      - resort-forecaster-network
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    container_name: es03
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    networks:
+      - resort-forecaster-network
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.5.2
+    ports:
+      - ${KIBANA_PORT}:5601
+    environment:
+      - SERVERNAME=kibana
+      - ELASTICSEARCH_HOSTS=http://es01:9200
+    networks:
+      - resort-forecaster-network
 
 volumes:
   elasticsearch-data:
   resort-forecaster-database_resort-forecaster-database-volume:
     external: true
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local
  
 networks:
   resort-forecaster-network:

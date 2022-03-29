@@ -32,7 +32,6 @@ namespace ResortForecaster.Repos.Repos
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            var connectionString = this._dbContext.Database;
             var result = await _dbContext.Set<TEntity>().AsQueryable()
                 .AsNoTracking()
                 .ToListAsync();
